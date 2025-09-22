@@ -1,0 +1,16 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\PawRescue.DataAccess.Abstraction\PawRescue.DataAccess.Abstraction.csproj" />
+    <ProjectReference Include="..\PawRescue.Domain\PawRescue.Domain.csproj" />
+    <ProjectReference Include="..\PawRescue.Infrastructure\PawRescue.Infrastructure.csproj" />
+    <ProjectReference Include="..\PawRescue.Services.Abstraction\PawRescue.Services.Abstraction.csproj" />
+  </ItemGroup>
+
+</Project>

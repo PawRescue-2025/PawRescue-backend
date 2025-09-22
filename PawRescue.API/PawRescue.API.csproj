@@ -1,0 +1,25 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.6.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Controllers\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\PawRescue.DataAccess.Abstraction\PawRescue.DataAccess.Abstraction.csproj" />
+    <ProjectReference Include="..\PawRescue.DataAccess\PawRescue.DataAccess.csproj" />
+    <ProjectReference Include="..\PawRescue.Infrastructure\PawRescue.Infrastructure.csproj" />
+    <ProjectReference Include="..\PawRescue.Services.Abstraction\PawRescue.Services.Abstraction.csproj" />
+    <ProjectReference Include="..\PawRescue.Services\PawRescue.Services.csproj" />
+  </ItemGroup>
+
+</Project>
