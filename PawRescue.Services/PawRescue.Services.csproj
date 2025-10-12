@@ -7,6 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="7.1.2" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\PawRescue.DataAccess.Abstraction\PawRescue.DataAccess.Abstraction.csproj" />
     <ProjectReference Include="..\PawRescue.Domain\PawRescue.Domain.csproj" />
     <ProjectReference Include="..\PawRescue.Infrastructure\PawRescue.Infrastructure.csproj" />
