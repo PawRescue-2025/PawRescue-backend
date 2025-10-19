@@ -1,12 +1,8 @@
-# Docs for the Azure Web Apps Deploy action: https://github.com/Azure/webapps-deploy
-# More GitHub Actions for Azure: https://github.com/Azure/actions
-
 name: Build and deploy ASP.Net Core app to Azure Web App - pawrescue-wa
 
 on:
   push:
-    branches:
-      - master
+    branches: [ master ]
   workflow_dispatch:
 
 jobs:
@@ -23,21 +19,21 @@ jobs:
         uses: actions/setup-dotnet@v4
         with:
           dotnet-version: '8.x'
-          cache: 'nuget'            # швидший restore
+          cache: true
+          cache-dependency-path: |
+            **/packages.lock.json
+            **/*.sln
+            **/*.csproj
 
       - name: Setup MSBuild
         uses: microsoft/setup-msbuild@v2
 
-      # 1) Restore (варіант A: окремим кроком)
       - name: Restore NuGet
         run: dotnet restore .\PawRescue.sln
 
-      # 2) Build solution (включно з .sqlproj)
-      #   (Альтернатива: msbuild .\PawRescue.sln /restore /p:Configuration=Release /m)
       - name: Build with MSBuild
         run: msbuild .\PawRescue.sln /p:Configuration=Release /m
 
-      # 3) Publish лише веб-API
       - name: Publish API
         run: dotnet publish .\PawRescue.API\PawRescue.API.csproj -c Release -o .\artifacts\api
 
@@ -74,4 +70,3 @@ jobs:
           app-name: pawrescue-wa
           slot-name: Production
           package: ./artifact
-
