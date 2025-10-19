@@ -1,65 +1,56 @@
-name: Build and deploy ASP.Net Core app to Azure Web App - pawrescue-wa
+# .github/workflows/build-api-db.yml
+name: Build API + DACPAC and Deploy
 
-on:
-  push:
-    branches:
-      - master
-  workflow_dispatch:
+on: [push]
 
 jobs:
   build:
     runs-on: windows-latest
-    permissions:
-      contents: read #This is required for actions/checkout
-
     steps:
       - uses: actions/checkout@v4
 
-      - name: Set up .NET Core
-        uses: actions/setup-dotnet@v4
+      - uses: actions/setup-dotnet@v4
         with:
           dotnet-version: '8.x'
 
-      - name: Build with dotnet
-        run: dotnet build --configuration Release
+      - name: Restore & Publish API
+        run: |
+          dotnet restore .\PawRescue-backend\PawRescue-backend\PawRescue.API\PawRescue.API.csproj
+          dotnet publish .\PawRescue-backend\PawRescue-backend\PawRescue.API\PawRescue.API.csproj -c Release -o .\out\api
 
-      - name: dotnet publish
-        # <<< ЗМІНА: Вказуємо конкретний проєкт для публікації.
-        # !!! Важливо: замініть 'PawRescue.API/PawRescue.API.csproj' на ваш реальний шлях до файлу .csproj
-        run: dotnet publish ./PawRescue.API/PawRescue.API.csproj -c Release -o "${{env.DOTNET_ROOT}}/myapp"
+      - name: Setup MSBuild
+        uses: microsoft/setup-msbuild@v2
 
-      - name: Upload artifact for deployment job
-        uses: actions/upload-artifact@v4
-        with:
-          name: .net-app
-          path: ${{env.DOTNET_ROOT}}/myapp
+      - name: Ensure SSDT (Database Projects) is installed
+        shell: powershell
+        run: |
+          $vsPath = & "C:\Program Files (x86)\Microsoft Visual Studio\Installer\vswhere.exe" -latest -products * -requires Microsoft.Component.MSBuild -property installationPath
+          & "$vsPath\vs_installer.exe" modify --installPath "$vsPath" --add Microsoft.VisualStudio.Workload.Data --add Microsoft.VisualStudio.Component.SQL.SSDT --quiet --norestart
+          # після цього з'явиться каталог ...\MSBuild\Microsoft\VisualStudio\v17.0\SSDT\Microsoft.Data.Tools.Schema.SqlTasks.targets
 
-  deploy:
-    runs-on: windows-latest
-    needs: build
-    permissions:
-      id-token: write #This is required for requesting the JWT
-      contents: read #This is required for actions/checkout
+      - name: Build DACPAC
+        run: |
+          msbuild .\PawRescue-backend\PawRescue-backend\PawRescue.Database\PawRescue.Database.sqlproj /t:Build /p:Configuration=Release
 
-    steps:
-      - name: Download artifact from build job
-        uses: actions/download-artifact@v4
-        with:
-          name: .net-app
-          # Завантажуємо в папку .net-app
-      
-      - name: Login to Azure
-        uses: azure/login@v2
-        with:
-          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_1B62B2300A6443F7A839B3A83585208F }}
-          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_F1A29F2D29354CA69104862F7A4A08C9 }}
-          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_3752A6DE637C4A09ABDA023718FA188D }}
+      - name: Find SqlPackage
+        id: sqlpackage
+        shell: powershell
+        run: |
+          $sp = Get-ChildItem "C:\Program Files\Microsoft SQL Server\*\DAC\bin\SqlPackage.exe" -Recurse -ErrorAction SilentlyContinue | Select-Object -Last 1
+          if (-not $sp) { throw "SqlPackage.exe not found" }
+          echo "path=$($sp.FullName)" >> $env:GITHUB_OUTPUT
 
-      - name: Deploy to Azure Web App
-        id: deploy-to-webapp
+      - name: Publish DACPAC to Azure SQL
+        shell: powershell
+        run: |
+          $dacpac = ".\PawRescue-backend\PawRescue-backend\PawRescue.Database\bin\Release\PawRescue.Database.dacpac"
+          & "${{ steps.sqlpackage.outputs.path }}" /Action:Publish /SourceFile:$dacpac `
+            /TargetConnectionString:'${{ secrets.AZURE_SQL_CONNECTION_STRING }}' `
+            /p:BlockOnPossibleDataLoss=false /p:GenerateSmartDefaults=true
+
+      - name: Deploy API to Azure WebApp
         uses: azure/webapps-deploy@v3
         with:
-          app-name: 'pawrescue-wa'
-          slot-name: 'Production'
-          # <<< ЗМІНА: Вказуємо, що розгортати потрібно вміст папки .net-app
-          package: .net-app
+          app-name: ${{ secrets.AZURE_WEBAPP_NAME }}
+          publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
+          package: .\out\api
