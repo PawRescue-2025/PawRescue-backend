@@ -13,48 +13,54 @@ jobs:
   build:
     runs-on: windows-latest
     permissions:
-      contents: read #This is required for actions/checkout
+      contents: read
 
     steps:
-      - name: Checkout repository
+      - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Set up .NET Core
+      - name: Setup .NET SDK
         uses: actions/setup-dotnet@v4
         with:
           dotnet-version: '8.x'
-      
-      # Додаємо крок для налаштування MSBuild, щоб він міг зібрати .sqlproj
+          cache: 'nuget'            # швидший restore
+
       - name: Setup MSBuild
         uses: microsoft/setup-msbuild@v2
 
-      # Використовуємо MSBuild замість 'dotnet build' для коректної збірки всього рішення
+      # 1) Restore (варіант A: окремим кроком)
+      - name: Restore NuGet
+        run: dotnet restore .\PawRescue.sln
+
+      # 2) Build solution (включно з .sqlproj)
+      #   (Альтернатива: msbuild .\PawRescue.sln /restore /p:Configuration=Release /m)
       - name: Build with MSBuild
-        run: msbuild /p:Configuration=Release
+        run: msbuild .\PawRescue.sln /p:Configuration=Release /m
 
-      # Публікуємо тільки основний проєкт веб-додатку
-      - name: Dotnet publish
-        run: dotnet publish ./PawRescue.API/PawRescue.API.csproj -c Release -o "${{env.DOTNET_ROOT}}/myapp" # !!! Перевірте, чи правильний шлях до вашого .csproj файлу
+      # 3) Publish лише веб-API
+      - name: Publish API
+        run: dotnet publish .\PawRescue.API\PawRescue.API.csproj -c Release -o .\artifacts\api
 
-      - name: Upload artifact for deployment job
+      - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
-          name: .net-app
-          path: ${{env.DOTNET_ROOT}}/myapp
+          name: api
+          path: .\artifacts\api
 
   deploy:
     runs-on: windows-latest
     needs: build
     permissions:
-      id-token: write #This is required for requesting the JWT
-      contents: read #This is required for actions/checkout
+      id-token: write
+      contents: read
 
     steps:
-      - name: Download artifact from build job
+      - name: Download artifact
         uses: actions/download-artifact@v4
         with:
-          name: .net-app
-      
+          name: api
+          path: ./artifact
+
       - name: Login to Azure
         uses: azure/login@v2
         with:
@@ -63,10 +69,9 @@ jobs:
           subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_3752A6DE637C4A09ABDA023718FA188D }}
 
       - name: Deploy to Azure Web App
-        id: deploy-to-webapp
         uses: azure/webapps-deploy@v3
         with:
-          app-name: 'pawrescue-wa'
-          slot-name: 'Production'
-          # Вказуємо, що розгортати потрібно вміст завантаженого артефакту
-          package: .net-app
+          app-name: pawrescue-wa
+          slot-name: Production
+          package: ./artifact
+
