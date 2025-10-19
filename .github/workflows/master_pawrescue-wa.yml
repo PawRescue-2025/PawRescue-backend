@@ -1,0 +1,72 @@
+name: Build and deploy ASP.Net Core app to Azure Web App - pawrescue-wa
+
+on:
+  push:
+    branches: [ master ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: windows-latest
+    permissions:
+      contents: read
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup .NET SDK
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.x'
+          cache: true
+          cache-dependency-path: |
+            **/packages.lock.json
+            **/*.sln
+            **/*.csproj
+
+      - name: Setup MSBuild
+        uses: microsoft/setup-msbuild@v2
+
+      - name: Restore NuGet
+        run: dotnet restore .\PawRescue.sln
+
+      - name: Build with MSBuild
+        run: msbuild .\PawRescue.sln /p:Configuration=Release /m
+
+      - name: Publish API
+        run: dotnet publish .\PawRescue.API\PawRescue.API.csproj -c Release -o .\artifacts\api
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: api
+          path: .\artifacts\api
+
+  deploy:
+    runs-on: windows-latest
+    needs: build
+    permissions:
+      id-token: write
+      contents: read
+
+    steps:
+      - name: Download artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: api
+          path: ./artifact
+
+      - name: Login to Azure
+        uses: azure/login@v2
+        with:
+          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_1B62B2300A6443F7A839B3A83585208F }}
+          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_F1A29F2D29354CA69104862F7A4A08C9 }}
+          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_3752A6DE637C4A09ABDA023718FA188D }}
+
+      - name: Deploy to Azure Web App
+        uses: azure/webapps-deploy@v3
+        with:
+          app-name: pawrescue-wa
+          slot-name: Production
+          package: ./artifact
