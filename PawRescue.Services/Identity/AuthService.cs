@@ -1,15 +1,16 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
+using Microsoft.IdentityModel.Tokens;
 using PawRescue.Domain.Dtos.Identity;
 using PawRescue.Domain.Dtos.Users;
 using PawRescue.Domain.Entities.Identity;
+using PawRescue.Domain.Enum;
 using PawRescue.Domain.Shared;
 using PawRescue.Services.Abstraction.Identity;
+using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
-using System.IdentityModel.Tokens.Jwt;
-using Microsoft.IdentityModel.Tokens;
 
 namespace PawRescue.Services.Identity;
 
@@ -40,6 +41,8 @@ public class AuthService(UserManager<AppUser> userManager, IConfiguration config
             var error = new Error("Auth.CreationFailed", identityResult.Errors.First().Description);
             return Result.Failure(error);
         }
+
+        await userManager.AddToRoleAsync(user, registerDto.Role.ToString());
 
         return Result.Success();
     }
