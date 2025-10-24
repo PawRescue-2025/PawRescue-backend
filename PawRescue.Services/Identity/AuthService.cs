@@ -1,10 +1,10 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using PawRescue.Domain.Dtos.Identity;
 using PawRescue.Domain.Dtos.Users;
 using PawRescue.Domain.Entities.Identity;
-using PawRescue.Domain.Enum;
 using PawRescue.Domain.Shared;
 using PawRescue.Services.Abstraction.Identity;
 using System.IdentityModel.Tokens.Jwt;
@@ -14,9 +14,10 @@ using System.Text;
 
 namespace PawRescue.Services.Identity;
 
-public class AuthService(UserManager<AppUser> userManager, IConfiguration configuration) : IAuthService
+public class AuthService(UserManager<AppUser> userManager, IConfiguration configuration, IMapper mapper) : IAuthService
 {
     private readonly UserManager<AppUser> userManager = userManager;
+    private readonly IMapper mapper = mapper;
 
     public async Task<Result> RegisterAsync(RegisterDTO registerDto)
     {
@@ -27,12 +28,7 @@ public class AuthService(UserManager<AppUser> userManager, IConfiguration config
             return Result.Failure(error);
         }
 
-        var user = new AppUser
-        {
-            Email = registerDto.Email,
-            UserName = registerDto.Username,
-            SecurityStamp = Guid.NewGuid().ToString()
-        };
+        var user = mapper.Map<AppUser>(registerDto);
 
         var identityResult = await userManager.CreateAsync(user, registerDto.Password);
 

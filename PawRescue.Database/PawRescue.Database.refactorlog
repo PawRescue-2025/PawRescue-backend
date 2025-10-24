@@ -1,0 +1,52 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Operations Version="1.0" xmlns="http://schemas.microsoft.com/sqlserver/dac/Serialization/2012/02">
+  <Operation Name="Rename Refactor" Key="e16f0f6a-1f4e-4807-926e-e5153a9b49a5" ChangeDateTime="10/23/2025 17:39:14">
+    <Property Name="ElementName" Value="[dbo].[Complaint]" />
+    <Property Name="ElementType" Value="SqlTable" />
+    <Property Name="ParentElementName" Value="[dbo]" />
+    <Property Name="ParentElementType" Value="SqlSchema" />
+    <Property Name="NewName" Value="[Complaints]" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="dc4b76f3-9552-4c7a-a2c0-0f3626387d10" ChangeDateTime="10/23/2025 17:39:30">
+    <Property Name="ElementName" Value="[dbo].[Comment]" />
+    <Property Name="ElementType" Value="SqlTable" />
+    <Property Name="ParentElementName" Value="[dbo]" />
+    <Property Name="ParentElementType" Value="SqlSchema" />
+    <Property Name="NewName" Value="[Comments]" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="85c0f30b-e08d-4b76-9ba4-eb4c434462ad" ChangeDateTime="10/23/2025 17:39:41">
+    <Property Name="ElementName" Value="[dbo].[Report]" />
+    <Property Name="ElementType" Value="SqlTable" />
+    <Property Name="ParentElementName" Value="[dbo]" />
+    <Property Name="ParentElementType" Value="SqlSchema" />
+    <Property Name="NewName" Value="[Reports]" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="a7e577b2-8635-4f00-877c-3960821efb44" ChangeDateTime="10/23/2025 17:39:47">
+    <Property Name="ElementName" Value="[dbo].[Shelter]" />
+    <Property Name="ElementType" Value="SqlTable" />
+    <Property Name="ParentElementName" Value="[dbo]" />
+    <Property Name="ParentElementType" Value="SqlSchema" />
+    <Property Name="NewName" Value="[Shelters]" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="fee8b6c0-c0b0-4618-9582-bf83aa2b03b0" ChangeDateTime="10/23/2025 17:39:59">
+    <Property Name="ElementName" Value="[dbo].[Verification]" />
+    <Property Name="ElementType" Value="SqlTable" />
+    <Property Name="ParentElementName" Value="[dbo]" />
+    <Property Name="ParentElementType" Value="SqlSchema" />
+    <Property Name="NewName" Value="[Verifications]" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="817eaf86-2f36-40ec-a91c-d4aefbb1de87" ChangeDateTime="10/23/2025 17:40:07">
+    <Property Name="ElementName" Value="[dbo].[Animal]" />
+    <Property Name="ElementType" Value="SqlTable" />
+    <Property Name="ParentElementName" Value="[dbo]" />
+    <Property Name="ParentElementType" Value="SqlSchema" />
+    <Property Name="NewName" Value="[Animals]" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="ea2cdb7c-580f-4864-b237-82de87f37f1d" ChangeDateTime="10/23/2025 17:50:47">
+    <Property Name="ElementName" Value="[dbo].[Animals].[IsVa]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[Animals]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="IsVacci" />
+  </Operation>
+</Operations>

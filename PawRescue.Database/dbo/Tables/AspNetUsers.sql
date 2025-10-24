@@ -14,8 +14,13 @@
     [LockoutEnd]             DATETIMEOFFSET (7) NULL,
     [LockoutEnabled]         BIT                NOT NULL,
     [AccessFailedCount]      INT                NOT NULL,
+    [FullName] NVARCHAR(100) NOT NULL,
+    [Description] TEXT NULL,
+    [Status] NVARCHAR(50) NOT NULL,
     [RefreshToken]           NVARCHAR (MAX)     NULL,
     [RefreshTokenExpiryTime] DATETIME2 (7)      DEFAULT ('0001-01-01T00:00:00.0000000') NOT NULL,
+    [RegistrationDate] DATETIME2     NOT NULL DEFAULT GETDATE(),
+    [DeletionDate] DATETIME2     NULL,
     CONSTRAINT [PK_AspNetUsers] PRIMARY KEY CLUSTERED ([Id] ASC)
 );
 
