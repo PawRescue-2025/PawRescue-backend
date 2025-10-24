@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PawRescue.Domain.Entities.Identity;
+using System;
 using System.Collections.Generic;
 
 namespace PawRescue.Domain.Entities;
@@ -19,7 +20,7 @@ public partial class Comment
 
     public DateTime? DeletionDate { get; set; }
 
-    public virtual AspNetUser Author { get; set; } = null!;
+    public virtual AppUser Author { get; set; } = null!;
 
     public virtual ICollection<Complaint> Complaints { get; set; } = new List<Complaint>();
 

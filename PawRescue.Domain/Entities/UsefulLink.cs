@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace PawRescue.Domain.Entities;
+﻿namespace PawRescue.Domain.Entities;
 
 public partial class UsefulLink
 {

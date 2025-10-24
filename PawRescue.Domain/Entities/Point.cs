@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PawRescue.Domain.Entities.Identity;
+using System;
 using System.Collections.Generic;
 
 namespace PawRescue.Domain.Entities;
@@ -17,7 +18,7 @@ public partial class Point
 
     public DateTime ReviewDate { get; set; }
 
-    public virtual AspNetUser Recipient { get; set; } = null!;
+    public virtual AppUser Recipient { get; set; } = null!;
 
-    public virtual AspNetUser? Reviewer { get; set; }
+    public virtual AppUser? Reviewer { get; set; }
 }

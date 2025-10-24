@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PawRescue.Domain.Entities.Identity;
+using System;
 using System.Collections.Generic;
 
 namespace PawRescue.Domain.Entities;
@@ -31,5 +32,5 @@ public partial class Post
 
     public virtual ICollection<Report> Reports { get; set; } = new List<Report>();
 
-    public virtual AspNetUser User { get; set; } = null!;
+    public virtual AppUser User { get; set; } = null!;
 }

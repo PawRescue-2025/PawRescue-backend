@@ -34,6 +34,8 @@ public class PawRescueContext : IdentityDbContext<AppUser>
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        base.OnModelCreating(modelBuilder);
+
         modelBuilder.Entity<Animal>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("PK__Animals__3214EC076CA3C47F");
@@ -76,7 +78,6 @@ public class PawRescueContext : IdentityDbContext<AppUser>
         {
             entity.HasKey(e => e.Id).HasName("PK__Complain__3214EC0795BE87B7");
 
-            entity.Property(e => e.Id).ValueGeneratedNever();
             entity.Property(e => e.Category).HasMaxLength(100);
             entity.Property(e => e.ComplainantId).HasMaxLength(450);
             entity.Property(e => e.CreationDate).HasDefaultValueSql("(getdate())");
@@ -196,7 +197,5 @@ public class PawRescueContext : IdentityDbContext<AppUser>
                 .HasForeignKey(d => d.UserId)
                 .HasConstraintName("FK_Verifications_To_Users");
         });
-
-        base.OnModelCreating(modelBuilder);
     }
 }

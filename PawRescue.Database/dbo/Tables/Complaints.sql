@@ -1,6 +1,6 @@
 ﻿CREATE TABLE [dbo].[Complaints]
 (
-	[Id] INT NOT NULL PRIMARY KEY,
+	[Id] INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
 	[ComplainantId] NVARCHAR(450) NULL,
 	[UserId] NVARCHAR(450) NULL,
 	[PostId] INT NULL,
