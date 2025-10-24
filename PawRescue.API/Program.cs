@@ -73,7 +73,7 @@ builder.Services.AddSwaggerGen(options =>
     });
 });
 
-builder.Services.RegisterServices();
+builder.Services.RegisterDependencies();
 
 var app = builder.Build();
 

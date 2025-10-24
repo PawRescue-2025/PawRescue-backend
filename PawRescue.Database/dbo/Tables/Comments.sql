@@ -7,6 +7,6 @@
 	[Status] NVARCHAR(50) NOT NULL,
 	[CreationDate] DATETIME2     NOT NULL DEFAULT GETDATE(),
 	[DeletionDate] DATETIME2     NULL,
-	CONSTRAINT [FK_Comments_To_Users] FOREIGN KEY ([AuthorId]) REFERENCES [dbo].[AspNetUsers]([Id]) ON DELETE CASCADE,
-	CONSTRAINT [FK_Comments_To_Posts] FOREIGN KEY ([PostId]) REFERENCES [dbo].[Posts]([Id]) ON DELETE CASCADE
+	CONSTRAINT [FK_Comments_To_Users] FOREIGN KEY ([AuthorId]) REFERENCES [dbo].[AspNetUsers]([Id]),
+	CONSTRAINT [FK_Comments_To_Posts] FOREIGN KEY ([PostId]) REFERENCES [dbo].[Posts]([Id])
 )

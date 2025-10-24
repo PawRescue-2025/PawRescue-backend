@@ -1,0 +1,33 @@
+﻿using System;
+using System.Collections.Generic;
+
+namespace PawRescue.Domain.Entities;
+
+public partial class Complaint
+{
+    public int Id { get; set; }
+
+    public string? ComplainantId { get; set; }
+
+    public string? UserId { get; set; }
+
+    public int? PostId { get; set; }
+
+    public int? CommentId { get; set; }
+
+    public string Category { get; set; } = null!;
+
+    public string? Description { get; set; }
+
+    public string Status { get; set; } = null!;
+
+    public DateTime CreationDate { get; set; }
+
+    public virtual Comment? Comment { get; set; }
+
+    public virtual AspNetUser? Complainant { get; set; }
+
+    public virtual Post? Post { get; set; }
+
+    public virtual AspNetUser? User { get; set; }
+}
