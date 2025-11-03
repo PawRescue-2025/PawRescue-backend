@@ -6,9 +6,9 @@ using PawRescue.Domain.MappingProfiles;
 using PawRescue.Services.Abstraction.Animal;
 using PawRescue.Services.Abstraction.Identity;
 using PawRescue.Services.Abstraction.Shelter;
-using PawRescue.Services.Animal;
+using PawRescue.Services.Animals;
 using PawRescue.Services.Identity;
-using PawRescue.Services.Shelter;
+using PawRescue.Services.Shelters;
 
 namespace PawRescue.API.Extensions;
 

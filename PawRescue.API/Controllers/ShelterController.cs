@@ -15,8 +15,15 @@ public class ShelterController(IShelterService shelterService) : ControllerBase
 
     [HttpPost]
     [Authorize(Roles = Roles.ShelterOwner)]
-    public IActionResult CreateAsync([FromBody] CreateShelterDTO createDto)
+    public async Task<IActionResult> CreateAsync([FromBody] CreateShelterDTO createDto)
     {
-        return Ok();
+        var result = await ShelterService.CreateAsync(createDto);
+
+        if (result.IsFailure)
+        {
+            return BadRequest(result.Error);
+        }
+
+        return Ok("Shelter created successfully!");
     }
 }

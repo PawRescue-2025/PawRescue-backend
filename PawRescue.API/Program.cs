@@ -1,3 +1,4 @@
+using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -5,7 +6,6 @@ using Microsoft.IdentityModel.Tokens;
 using PawRescue.API.Extensions;
 using PawRescue.DataAccess.Contexts;
 using PawRescue.Domain.Entities.Identity;
-using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -91,19 +91,19 @@ app.UseAuthorization();
 
 app.MapControllers();
 
-using (var scope = app.Services.CreateScope())
-{
-    var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+//using (var scope = app.Services.CreateScope())
+//{
+//    var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
 
-    var roleNames = Enum.GetNames(typeof(PawRescue.Domain.Enum.UserRole));
+//    var roleNames = Enum.GetNames(typeof(PawRescue.Domain.Enum.UserRole));
 
-    foreach (var roleName in roleNames)
-    {
-        if (!await roleManager.RoleExistsAsync(roleName))
-        {
-            await roleManager.CreateAsync(new IdentityRole(roleName));
-        }
-    }
-}
+//    foreach (var roleName in roleNames)
+//    {
+//        if (!await roleManager.RoleExistsAsync(roleName))
+//        {
+//            await roleManager.CreateAsync(new IdentityRole(roleName));
+//        }
+//    }
+//}
 
 app.Run();

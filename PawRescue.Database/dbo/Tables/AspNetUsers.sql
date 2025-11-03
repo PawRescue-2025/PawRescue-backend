@@ -16,7 +16,7 @@
     [AccessFailedCount]      INT                NOT NULL,
     [FullName] NVARCHAR(100) NOT NULL,
     [Description] TEXT NULL,
-    [Status] NVARCHAR(50) NOT NULL,
+    [Status] INT NOT NULL,
     [RefreshToken]           NVARCHAR (MAX)     NULL,
     [RefreshTokenExpiryTime] DATETIME2 (7)      DEFAULT ('0001-01-01T00:00:00.0000000') NOT NULL,
     [RegistrationDate] DATETIME2     NOT NULL DEFAULT GETDATE(),
