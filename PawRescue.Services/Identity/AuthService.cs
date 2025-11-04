@@ -109,6 +109,12 @@ public class AuthService(UserManager<AppUser> userManager, IConfiguration config
         }
 
         var userRoles = await userManager.GetRolesAsync(user);
+
+        var verificationStatus = VerificationStatus.Verified;
+
+        if (userRoles.Any(x => x == Roles.ShelterOwner || x == Roles.Volunteer))
+            verificationStatus = await GetVerificationStatusAsync(user.Id);
+
         var newAccessToken = GenerateJwtToken(user, userRoles);
         var newRefreshToken = GenerateRefreshToken();
 
@@ -118,7 +124,7 @@ public class AuthService(UserManager<AppUser> userManager, IConfiguration config
         var userDto = new UserDTO(user.Id, user.Email, userRoles);
         var expiresIn = (int)TimeSpan.FromMinutes(15).TotalSeconds;
 
-        var response = new AuthResponseDto(newAccessToken, expiresIn, newRefreshToken, userDto);
+        var response = new AuthResponseDto(newAccessToken, expiresIn, newRefreshToken, userDto, verificationStatus);
         return Result<AuthResponseDto>.Success(response);
     }
 
