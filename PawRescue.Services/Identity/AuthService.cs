@@ -2,6 +2,9 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
+using PawRescue.DataAccess.Abstraction.Repositories;
+using PawRescue.DataAccess.Abstraction.UnitOfWork;
+using PawRescue.Domain.Const;
 using PawRescue.Domain.Dtos.Identity;
 using PawRescue.Domain.Dtos.Users;
 using PawRescue.Domain.Entities.Identity;
@@ -15,10 +18,12 @@ using System.Text;
 
 namespace PawRescue.Services.Identity;
 
-public class AuthService(UserManager<AppUser> userManager, IConfiguration configuration, IMapper mapper) : IAuthService
+public class AuthService(UserManager<AppUser> userManager, IConfiguration configuration, IMapper mapper, IUnitOfWorkFactory unitOfWorkFactory) : IAuthService
 {
     private readonly UserManager<AppUser> userManager = userManager;
+    private readonly IConfiguration configuration = configuration;
     private readonly IMapper mapper = mapper;
+    private readonly IUnitOfWorkFactory unitOfWorkFactory = unitOfWorkFactory;
 
     public async Task<Result> RegisterAsync(RegisterDTO registerDto)
     {
@@ -55,6 +60,11 @@ public class AuthService(UserManager<AppUser> userManager, IConfiguration config
 
         var userRoles = await userManager.GetRolesAsync(user);
 
+        var verificationStatus = VerificationStatus.Verified;
+
+        if (userRoles.Any(x => x == Roles.ShelterOwner || x == Roles.Volunteer))
+            verificationStatus = await GetVerificationStatusAsync(user.Id);
+        
         var accessToken = GenerateJwtToken(user, userRoles);
         var refreshToken = GenerateRefreshToken();
 
@@ -65,9 +75,22 @@ public class AuthService(UserManager<AppUser> userManager, IConfiguration config
         var userDto = new UserDTO(user.Id, user.Email, userRoles);
         var expiresIn = (int)TimeSpan.FromMinutes(15).TotalSeconds;
 
-        var response = new AuthResponseDto(accessToken, expiresIn, refreshToken, userDto);
+        var response = new AuthResponseDto(accessToken, expiresIn, refreshToken, userDto, verificationStatus);
 
         return Result<AuthResponseDto>.Success(response);
+    }
+
+    private async Task<VerificationStatus> GetVerificationStatusAsync(string id)
+    {
+        using var uow = unitOfWorkFactory.CreateUnitOfWork();
+        var repository = uow.GetRepository<IVerificationRepository>();
+
+        var verification = await repository.GetByUserIdAsync(id);
+
+        if (verification == null)
+            return VerificationStatus.NotVerified;
+
+        return verification.Status;
     }
 
     public async Task<Result<AuthResponseDto>> RefreshTokenAsync(string accessToken, string refreshToken)

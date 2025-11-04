@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using PawRescue.Domain.Const;
 using PawRescue.Domain.Dtos.Shelter;
 using PawRescue.Services.Abstraction.Shelter;
+using PawRescue.Services.Abstraction.Verifications;
 
 namespace PawRescue.API.Controllers;
 
@@ -11,13 +12,13 @@ namespace PawRescue.API.Controllers;
 [Authorize]
 public class ShelterController(IShelterService shelterService) : ControllerBase
 {
-    public IShelterService ShelterService { get; } = shelterService;
+    private readonly IShelterService shelterService = shelterService;
 
     [HttpPost]
     [Authorize(Roles = $"{Roles.ShelterOwner},{Roles.Moderator}")]
     public async Task<IActionResult> CreateAsync([FromBody] CreateShelterDTO createDto)
     {
-        var result = await ShelterService.CreateAsync(createDto);
+        var result = await shelterService.CreateAsync(createDto);
 
         if (result.IsFailure)
         {
@@ -31,7 +32,7 @@ public class ShelterController(IShelterService shelterService) : ControllerBase
     [Authorize(Roles = $"{Roles.ShelterOwner},{Roles.Moderator}")]
     public async Task<IActionResult> UpdateAsync([FromBody] UpdateShelterDTO updateDto)
     {
-        var result = await ShelterService.UpdateAsync(updateDto);
+        var result = await shelterService.UpdateAsync(updateDto);
 
         if (result.IsFailure)
         {
@@ -45,7 +46,7 @@ public class ShelterController(IShelterService shelterService) : ControllerBase
     [Authorize(Roles = $"{Roles.ShelterOwner},{Roles.Moderator}")]
     public async Task<IActionResult> GetAllAsync()
     {
-        var result = await ShelterService.GetAllAsync();
+        var result = await shelterService.GetAllAsync();
 
         if (result.IsFailure)
         {
@@ -59,7 +60,7 @@ public class ShelterController(IShelterService shelterService) : ControllerBase
     [Authorize(Roles = $"{Roles.ShelterOwner},{Roles.Moderator}")]
     public async Task<IActionResult> GetByIdAsync([FromRoute] int id)
     {
-        var result = await ShelterService.GetByIdAsync(id);
+        var result = await shelterService.GetByIdAsync(id);
 
         if (result.IsFailure)
         {
@@ -73,7 +74,7 @@ public class ShelterController(IShelterService shelterService) : ControllerBase
     [Authorize(Roles = $"{Roles.ShelterOwner},{Roles.Moderator}")]
     public async Task<IActionResult> DeleteAsync([FromRoute] int id)
     {
-        var result = await ShelterService.DeleteAsync(id);
+        var result = await shelterService.DeleteAsync(id);
 
         if (result.IsFailure)
         {

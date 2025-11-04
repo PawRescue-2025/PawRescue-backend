@@ -2,9 +2,10 @@
 
 namespace PawRescue.Domain.Dtos.Verification;
 
-public class CreateVerificationDTO
+public class GridVerificationDTO
 {
+    public int Id { get; set; }
     public string UserId { get; set; }
-    public VerificationStatus Status { get; set; } = VerificationStatus.Pending;
     public string Documents { get; set; }
+    public VerificationStatus Status { get; set; }
 }

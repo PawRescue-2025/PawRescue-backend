@@ -190,7 +190,6 @@ public class PawRescueContext : IdentityDbContext<AppUser>
         {
             entity.HasKey(e => e.Id).HasName("PK__Verifica__3214EC079C08C94B");
 
-            entity.Property(e => e.Status).HasMaxLength(50);
             entity.Property(e => e.UserId).HasMaxLength(450);
             entity.Property(e => e.Documents);
 
