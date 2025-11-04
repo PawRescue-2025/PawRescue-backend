@@ -192,6 +192,7 @@ public class PawRescueContext : IdentityDbContext<AppUser>
 
             entity.Property(e => e.Status).HasMaxLength(50);
             entity.Property(e => e.UserId).HasMaxLength(450);
+            entity.Property(e => e.Documents);
 
             entity.HasOne(d => d.User).WithMany(p => p.Verifications)
                 .HasForeignKey(d => d.UserId)

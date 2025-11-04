@@ -5,6 +5,7 @@ using Microsoft.IdentityModel.Tokens;
 using PawRescue.Domain.Dtos.Identity;
 using PawRescue.Domain.Dtos.Users;
 using PawRescue.Domain.Entities.Identity;
+using PawRescue.Domain.Enum;
 using PawRescue.Domain.Shared;
 using PawRescue.Services.Abstraction.Identity;
 using System.IdentityModel.Tokens.Jwt;

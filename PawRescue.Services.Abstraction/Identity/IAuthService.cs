@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Identity;
-using PawRescue.Domain.Dtos.Identity;
+﻿using PawRescue.Domain.Dtos.Identity;
 using PawRescue.Domain.Shared;
 
 namespace PawRescue.Services.Abstraction.Identity;

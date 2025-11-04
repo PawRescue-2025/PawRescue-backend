@@ -26,4 +26,71 @@ public class ShelterService(IUnitOfWorkFactory unitOfWorkFactory, IMapper mapper
 
         return Result.Success();
     }
+
+    public async Task<Result<GridShelterDTO>> UpdateAsync(UpdateShelterDTO updateDto)
+    {
+        using var uow = unitOfWorkFactory.CreateUnitOfWork();
+        var repository = uow.GetRepository<IShelterRepository>();
+
+        var existingShelter = await repository.GetByIdAsync(updateDto.Id);
+
+        if (existingShelter == null)
+        {
+            var error = new Error("System.NotFound", "There is no shelter with this id.");
+            return Result<GridShelterDTO>.Failure(error);
+        }
+
+        mapper.Map(updateDto, existingShelter);
+
+        repository.Update(existingShelter);
+
+        await uow.CommitAsync();
+
+        return Result<GridShelterDTO>.Success(mapper.Map<GridShelterDTO>(existingShelter));
+    }
+
+    public async Task<Result<IEnumerable<GridShelterDTO>>> GetAllAsync()
+    {
+        using var uow = unitOfWorkFactory.CreateUnitOfWork();
+        var repository = uow.GetRepository<IShelterRepository>();
+
+        var shelters = await repository.GetAllAsync();
+
+        return Result<IEnumerable<GridShelterDTO>>.Success(mapper.Map<IEnumerable<GridShelterDTO>>(shelters));
+    }
+
+    public async Task<Result<GridShelterDTO>> GetByIdAsync(int id)
+    {
+        using var uow = unitOfWorkFactory.CreateUnitOfWork();
+        var repository = uow.GetRepository<IShelterRepository>();
+
+        var shelter = await repository.GetByIdAsync(id);
+
+        if (shelter == null)
+        {
+            var error = new Error("System.NotFound", "There is no shelter with this id.");
+            return Result<GridShelterDTO>.Failure(error);
+        }
+
+        return Result<GridShelterDTO>.Success(mapper.Map<GridShelterDTO>(shelter));
+    }
+
+    public async Task<Result> DeleteAsync(int id)
+    {
+        using var uow = unitOfWorkFactory.CreateUnitOfWork();
+        var repository = uow.GetRepository<IShelterRepository>();
+
+        var shelter = await repository.GetByIdAsync(id);
+
+        if (shelter == null)
+        {
+            var error = new Error("System.NotFound", "There is no shelter with this id.");
+            return Result.Failure(error);
+        }
+            
+        repository.Remove(shelter);
+        await uow.CommitAsync();
+
+        return Result.Success();
+    }
 }
