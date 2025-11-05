@@ -1,4 +1,5 @@
 ﻿using PawRescue.Domain.Entities.Identity;
+using PawRescue.Domain.Enum;
 using System;
 using System.Collections.Generic;
 
@@ -10,19 +11,21 @@ public partial class Post
 
     public string UserId { get; set; } = null!;
 
-    public string PostType { get; set; } = null!;
+    public PostType PostType { get; set; }
 
     public string Title { get; set; } = null!;
 
     public string Content { get; set; } = null!;
 
-    public string Status { get; set; } = null!;
+    public EntityStatus Status { get; set; }
 
     public bool? IsHelpRequestCompleted { get; set; }
 
     public DateTime CreationDate { get; set; }
 
     public DateTime? DeletionDate { get; set; }
+
+    public DateTime? EventDate { get; set; }
 
     public string? Location { get; set; }
 

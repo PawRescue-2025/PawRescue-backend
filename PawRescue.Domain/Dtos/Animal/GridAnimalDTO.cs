@@ -1,8 +1,8 @@
 ﻿using PawRescue.Domain.Enum;
 
-namespace PawRescue.Domain.Entities;
+namespace PawRescue.Domain.Dtos.Animal;
 
-public partial class Animal
+public class GridAnimalDTO
 {
     public int Id { get; set; }
 
@@ -24,9 +24,9 @@ public partial class Animal
 
     public string? Description { get; set; }
 
-    public string Documents { get; set; } = null!;
+    public List<string> Documents { get; set; } = null!;
 
-    public string Photos { get; set; } = null!;
+    public List<string> Photos { get; set; } = null!;
 
     public bool IsHealthy { get; set; }
 
@@ -35,8 +35,4 @@ public partial class Animal
     public bool IsSterilized { get; set; }
 
     public AdoptionStatus AdoptionStatus { get; set; }
-
-    public DateTime ArrivalDate { get; set; }
-
-    public virtual Shelter Shelter { get; set; } = null!;
 }

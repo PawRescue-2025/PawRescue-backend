@@ -40,13 +40,15 @@ public class PawRescueContext : IdentityDbContext<AppUser>
         {
             entity.HasKey(e => e.Id).HasName("PK__Animals__3214EC076CA3C47F");
 
-            entity.Property(e => e.AdoptionStatus).HasMaxLength(50);
+            entity.Property(e => e.AdoptionStatus);
+            entity.Property(e => e.Size);
             entity.Property(e => e.ArrivalDate).HasDefaultValueSql("(getdate())");
             entity.Property(e => e.Breed).HasMaxLength(50);
             entity.Property(e => e.Description).HasColumnType("text");
+            entity.Property(e => e.Documents);
+            entity.Property(e => e.Photos);
             entity.Property(e => e.Gender).HasMaxLength(50);
             entity.Property(e => e.Name).HasMaxLength(50);
-            entity.Property(e => e.Size).HasMaxLength(10);
             entity.Property(e => e.Species).HasMaxLength(50);
 
             entity.HasOne(d => d.Shelter).WithMany(p => p.Animals)
@@ -129,7 +131,6 @@ public class PawRescueContext : IdentityDbContext<AppUser>
             entity.Property(e => e.CreationDate).HasDefaultValueSql("(getdate())");
             entity.Property(e => e.Location).HasMaxLength(200);
             entity.Property(e => e.PostType).HasMaxLength(50);
-            entity.Property(e => e.Status).HasMaxLength(50);
             entity.Property(e => e.Title).HasMaxLength(100);
             entity.Property(e => e.UserId).HasMaxLength(450);
 
