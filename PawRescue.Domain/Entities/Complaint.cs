@@ -21,9 +21,9 @@ public partial class Complaint
 
     public string? Description { get; set; }
 
-    public ComplaintStatus Status { get; set; }
+    public ComplaintStatus Status { get; set; } = ComplaintStatus.New;
 
-    public DateTime CreationDate { get; set; }
+    public DateTime CreationDate { get; set; } = DateTime.UtcNow;
 
     public virtual Comment? Comment { get; set; }
 
