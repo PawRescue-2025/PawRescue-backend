@@ -20,7 +20,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Dtos\Post\" />
+    <Folder Include="Dtos\Complaint\" />
+    <Folder Include="Dtos\Point\" />
+    <Folder Include="Dtos\Resource\" />
   </ItemGroup>
 
 </Project>

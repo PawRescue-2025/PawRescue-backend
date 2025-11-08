@@ -29,6 +29,8 @@ public partial class Post
 
     public string? Location { get; set; }
 
+    public string? Photos { get; set; }
+
     public virtual ICollection<Comment> Comments { get; set; } = new List<Comment>();
 
     public virtual ICollection<Complaint> Complaints { get; set; } = new List<Complaint>();

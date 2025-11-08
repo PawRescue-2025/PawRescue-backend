@@ -11,5 +11,6 @@
 	[CreationDate] DATETIME2     NOT NULL DEFAULT GETDATE(),
 	[DeletionDate] DATETIME2     NULL,
 	[Location]   NVARCHAR(200)   NULL,
+	[Photos] NVARCHAR(MAX)  NULL,
 	CONSTRAINT [FK_Posts_To_Users] FOREIGN KEY ([UserId]) REFERENCES [dbo].[AspNetUsers]([Id]) ON DELETE CASCADE
 )

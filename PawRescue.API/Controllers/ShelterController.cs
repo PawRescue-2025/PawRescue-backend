@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Mvc;
 using PawRescue.Domain.Const;
 using PawRescue.Domain.Dtos.Shelter;
 using PawRescue.Services.Abstraction.Shelter;
-using PawRescue.Services.Abstraction.Verifications;
 
 namespace PawRescue.API.Controllers;
 

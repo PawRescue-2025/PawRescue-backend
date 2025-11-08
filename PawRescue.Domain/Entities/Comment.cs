@@ -1,4 +1,5 @@
 ﻿using PawRescue.Domain.Entities.Identity;
+using PawRescue.Domain.Enum;
 using System;
 using System.Collections.Generic;
 
@@ -14,7 +15,7 @@ public partial class Comment
 
     public string Content { get; set; } = null!;
 
-    public string Status { get; set; } = null!;
+    public EntityStatus Status { get; set; } = EntityStatus.Active;
 
     public DateTime CreationDate { get; set; }
 

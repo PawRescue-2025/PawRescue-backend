@@ -1,4 +1,5 @@
 ﻿using PawRescue.Domain.Entities.Identity;
+using PawRescue.Domain.Enum;
 using System;
 using System.Collections.Generic;
 
@@ -20,7 +21,7 @@ public partial class Complaint
 
     public string? Description { get; set; }
 
-    public string Status { get; set; } = null!;
+    public ComplaintStatus Status { get; set; }
 
     public DateTime CreationDate { get; set; }
 

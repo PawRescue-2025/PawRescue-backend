@@ -4,7 +4,7 @@
 	[AuthorId] NVARCHAR(450) NOT NULL,
 	[PostId]   INT          NOT NULL,
 	[Content] TEXT NOT NULL,
-	[Status] NVARCHAR(50) NOT NULL,
+	[Status] INT NOT NULL,
 	[CreationDate] DATETIME2     NOT NULL DEFAULT GETDATE(),
 	[DeletionDate] DATETIME2     NULL,
 	CONSTRAINT [FK_Comments_To_Users] FOREIGN KEY ([AuthorId]) REFERENCES [dbo].[AspNetUsers]([Id]),

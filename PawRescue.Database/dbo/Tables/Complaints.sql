@@ -7,7 +7,7 @@
 	[CommentId] INT NULL,
 	[Category] NVARCHAR(100) NOT NULL,
 	[Description] TEXT NULL,
-	[Status] NVARCHAR(50) NOT NULL,
+	[Status] INT NOT NULL,
 	[CreationDate] DATETIME2     NOT NULL DEFAULT GETDATE(),
 	CONSTRAINT [FK_Complaints_To_Complainants] FOREIGN KEY ([ComplainantId]) REFERENCES [dbo].[AspNetUsers]([Id]),
 	CONSTRAINT [FK_Complaints_To_Users] FOREIGN KEY ([UserId]) REFERENCES [dbo].[AspNetUsers]([Id]),
