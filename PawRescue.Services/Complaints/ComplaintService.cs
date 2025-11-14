@@ -1,9 +1,7 @@
 ﻿using AutoMapper;
 using PawRescue.DataAccess.Abstraction.Repositories;
 using PawRescue.DataAccess.Abstraction.UnitOfWork;
-using PawRescue.Domain.Dtos.Comment;
 using PawRescue.Domain.Dtos.Complaint;
-using PawRescue.Domain.Dtos.Shelter;
 using PawRescue.Domain.Entities;
 using PawRescue.Domain.Shared;
 using PawRescue.Services.Abstraction.Complaints;

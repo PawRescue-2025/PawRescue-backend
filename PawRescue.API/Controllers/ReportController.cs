@@ -1,12 +1,8 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using PawRescue.Domain.Const;
-using PawRescue.Domain.Dtos.Comment;
 using PawRescue.Domain.Dtos.Report;
-using PawRescue.Services.Abstraction.Comments;
 using PawRescue.Services.Abstraction.Reports;
-using PawRescue.Services.Animals;
-using PawRescue.Services.Comments;
 
 namespace PawRescue.API.Controllers;
 

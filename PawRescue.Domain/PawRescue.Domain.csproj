@@ -19,9 +19,4 @@
     </PackageReference>
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Dtos\Point\" />
-    <Folder Include="Dtos\Resource\" />
-  </ItemGroup>
-
 </Project>

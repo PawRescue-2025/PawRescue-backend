@@ -1,6 +1,4 @@
 ﻿using PawRescue.Domain.Entities.Identity;
-using System;
-using System.Collections.Generic;
 
 namespace PawRescue.Domain.Entities;
 

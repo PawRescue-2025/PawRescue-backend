@@ -1,9 +1,7 @@
-﻿namespace PawRescue.Domain.Entities;
+﻿namespace PawRescue.Domain.Dtos.Resource;
 
-public partial class Resource
+public class CreateResourceDTO
 {
-    public int Id { get; set; }
-
     public int ShelterId { get; set; }
 
     public string Category { get; set; } = null!;
@@ -13,6 +11,4 @@ public partial class Resource
     public string Description { get; set; } = null!;
 
     public bool IsPresent { get; set; }
-
-    public virtual Shelter Shelter { get; set; } = null!;
 }
