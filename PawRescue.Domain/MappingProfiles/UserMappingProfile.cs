@@ -9,5 +9,9 @@ public class UserMappingProfile : Profile
     public UserMappingProfile()
     {
         CreateMap<AppUser, GridUserDTO>();
+
+        CreateMap<UpdateUserDTO, AppUser>();
+
+        CreateMap<StatusUserDTO, AppUser>();
     }
 }

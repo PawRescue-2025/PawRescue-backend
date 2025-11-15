@@ -13,6 +13,7 @@ using PawRescue.Services.Abstraction.Reports;
 using PawRescue.Services.Abstraction.Resources;
 using PawRescue.Services.Abstraction.Shelter;
 using PawRescue.Services.Abstraction.UsefulLinks;
+using PawRescue.Services.Abstraction.Users;
 using PawRescue.Services.Abstraction.Verifications;
 using PawRescue.Services.Animals;
 using PawRescue.Services.Comments;
@@ -24,6 +25,7 @@ using PawRescue.Services.Reports;
 using PawRescue.Services.Resources;
 using PawRescue.Services.Shelters;
 using PawRescue.Services.UsefulLinks;
+using PawRescue.Services.Users;
 using PawRescue.Services.Verifications;
 
 namespace PawRescue.API.Extensions;
@@ -52,6 +54,7 @@ public static class DependencyInjectionConfig
         services.AddTransient<IUsefulLinkService, UsefulLinkService>();
         services.AddTransient<IResourceService, ResourceService>();
         services.AddTransient<IPointService, PointService>();
+        services.AddTransient<IUserProfileService, UserProfileService>();
     }
 
     private static void RegisterDataAccess(this IServiceCollection services)

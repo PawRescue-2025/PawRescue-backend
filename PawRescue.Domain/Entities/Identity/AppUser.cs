@@ -9,6 +9,7 @@ public class AppUser : IdentityUser
     public DateTime RefreshTokenExpiryTime { get; set; }
     public string FullName { get; set; }
     public string? Description { get; set; }
+    public string? Photo { get; set; }
     public DateTime RegistrationDate { get; set; } = DateTime.Now;
     public DateTime? DeletionDate { get; set; }
     public EntityStatus Status { get; set; } = EntityStatus.Active;
