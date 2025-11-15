@@ -69,13 +69,13 @@ jobs:
           subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_1F24F81D8540423781B1F618ABBF09CC }}
 
       - name: Deploy to Azure Web App
-        id: deploy-to-webapp
         uses: azure/webapps-deploy@v3
         with:
-          app-name: 'pawrescue-wa-2'
-          slot-name: 'Production'
-          package: .
+          app-name: pawrescue-wa-2
+          slot-name: Production
+          package: ./artifact
 
           
+
 
 
