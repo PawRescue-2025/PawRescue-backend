@@ -10,7 +10,7 @@ using PawRescue.Domain.Entities.Identity;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddDbContext<PawRescueContext>(options =>
-    options.UseSqlServer("Server=tcp:pawrescue-dbserver2.database.windows.net,1433;Initial Catalog=pawrescue-db;Persist Security Info=False;User ID=sqladmin;Password=Pawrescue-2025;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;"));
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 builder.Services.AddIdentity<AppUser, IdentityRole>(options =>
     {
@@ -36,9 +36,9 @@ builder.Services.AddAuthentication(options =>
         ValidateAudience = false,
         ValidateLifetime = true,
         ValidateIssuerSigningKey = true,
-        ValidIssuer = "https://your-api-domain.com",
-        ValidAudience = "https://your-client-domain.com",
-        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("Kz#S8@p2!tQ$vE&r*Lg%uY+bF/jWc?n5hA-dG9xJ"))
+        ValidIssuer = builder.Configuration["Jwt:Issuer"],
+        ValidAudience = builder.Configuration["Jwt:Audience"],
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]))
     };
 });
 

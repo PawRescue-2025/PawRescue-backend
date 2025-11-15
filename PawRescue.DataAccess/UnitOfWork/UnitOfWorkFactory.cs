@@ -21,7 +21,7 @@ public class UnitOfWorkFactory(IServiceProvider serviceProvider, IConfiguration 
     private PawRescueContext CreateDbContext()
     {
         var options = new DbContextOptionsBuilder<PawRescueContext>()
-            .UseSqlServer("Server=tcp:pawrescue-dbserver2.database.windows.net,1433;Initial Catalog=pawrescue-db;Persist Security Info=False;User ID=sqladmin;Password=Pawrescue-2025;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;")
+            .UseSqlServer(configuration.GetConnectionString("DefaultConnection"))
             .Options;
 
         return new PawRescueContext(options);
