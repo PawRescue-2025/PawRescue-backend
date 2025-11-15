@@ -13,27 +13,39 @@ jobs:
   build:
     runs-on: windows-latest
     permissions:
-      contents: read #This is required for actions/checkout
+      contents: read
 
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout
+        uses: actions/checkout@v4
 
-      - name: Set up .NET Core
+      - name: Setup .NET SDK
         uses: actions/setup-dotnet@v4
         with:
           dotnet-version: '8.x'
+          cache: true
+          cache-dependency-path: |
+            /packages.lock.json
+            /*.sln
+            **/*.csproj
 
-      - name: Build with dotnet
-        run: dotnet build --configuration Release
+      - name: Setup MSBuild
+        uses: microsoft/setup-msbuild@v2
 
-      - name: dotnet publish
-        run: dotnet publish -c Release -o "${{env.DOTNET_ROOT}}/myapp"
+      - name: Restore NuGet
+        run: dotnet restore .\PawRescue.sln
 
-      - name: Upload artifact for deployment job
+      - name: Build with MSBuild
+        run: msbuild .\PawRescue.sln /p:Configuration=Release /m
+
+      - name: Publish API
+        run: dotnet publish .\PawRescue.API\PawRescue.API.csproj -c Release -o .\artifacts\api
+
+      - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
-          name: .net-app
-          path: ${{env.DOTNET_ROOT}}/myapp
+          name: api
+          path: .\artifacts\api
 
   deploy:
     runs-on: windows-latest
@@ -62,4 +74,5 @@ jobs:
           app-name: 'pawrescue-wa-2'
           slot-name: 'Production'
           package: .
+
           
