@@ -55,10 +55,11 @@ jobs:
       contents: read #This is required for actions/checkout
 
     steps:
-      - name: Download artifact from build job
+      - name: Download artifact
         uses: actions/download-artifact@v4
         with:
-          name: .net-app
+          name: api
+          path: ./artifact
       
       - name: Login to Azure
         uses: azure/login@v2
@@ -76,3 +77,4 @@ jobs:
           package: .
 
           
+
