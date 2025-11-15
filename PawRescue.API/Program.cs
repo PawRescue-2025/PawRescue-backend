@@ -91,19 +91,4 @@ app.UseAuthorization();
 
 app.MapControllers();
 
-//using (var scope = app.Services.CreateScope())
-//{
-//    var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
-
-//    var roleNames = Enum.GetNames(typeof(PawRescue.Domain.Enum.UserRole));
-
-//    foreach (var roleName in roleNames)
-//    {
-//        if (!await roleManager.RoleExistsAsync(roleName))
-//        {
-//            await roleManager.CreateAsync(new IdentityRole(roleName));
-//        }
-//    }
-//}
-
 app.Run();
