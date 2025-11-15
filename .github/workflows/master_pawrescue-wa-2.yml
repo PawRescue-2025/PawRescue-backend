@@ -25,8 +25,8 @@ jobs:
           dotnet-version: '8.x'
           cache: true
           cache-dependency-path: |
-            /packages.lock.json
-            /*.sln
+            **/packages.lock.json
+            **/*.sln
             **/*.csproj
 
       - name: Setup MSBuild
@@ -77,4 +77,5 @@ jobs:
           package: .
 
           
+
 
