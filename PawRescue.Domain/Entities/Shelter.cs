@@ -14,6 +14,12 @@ public partial class Shelter
 
     public string Location { get; set; } = null!;
 
+    public string? ContactPhone { get; set; }
+
+    public string? ContactEmail { get; set; }
+
+    public string? ContactLink { get; set; }
+
     public virtual ICollection<Animal> Animals { get; set; } = new List<Animal>();
 
     public virtual AppUser Owner { get; set; } = null!;

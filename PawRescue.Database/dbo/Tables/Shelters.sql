@@ -5,5 +5,9 @@
 	[Name]		  NVARCHAR(100)	   NOT NULL,
 	[Description] TEXT   NOT NULL,
 	[Location]	  NVARCHAR(200)   NOT NULL,
-	CONSTRAINT [FK_Shelters_To_Users] FOREIGN KEY ([OwnerId]) REFERENCES [dbo].[AspNetUsers]([Id]) ON DELETE CASCADE
+
+	[ContactPhone] NVARCHAR(50) NULL, 
+    [ContactEmail] NVARCHAR(50) NULL, 
+    [ContactLink] NVARCHAR(50) NULL, 
+    CONSTRAINT [FK_Shelters_To_Users] FOREIGN KEY ([OwnerId]) REFERENCES [dbo].[AspNetUsers]([Id]) ON DELETE CASCADE
 )

@@ -18,5 +18,11 @@ public class CreatePostDTO
 
     public string? Location { get; set; }
 
+    public string? ContactPhone { get; set; }
+
+    public string? ContactEmail { get; set; }
+
+    public string? ContactLink { get; set; }
+
     public List<string> Photos { get; set; }
 }

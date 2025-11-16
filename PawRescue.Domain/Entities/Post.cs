@@ -31,6 +31,12 @@ public partial class Post
 
     public string? Photos { get; set; }
 
+    public string? ContactPhone { get; set; }
+
+    public string? ContactEmail { get; set; }
+
+    public string? ContactLink { get; set; }
+
     public virtual ICollection<Comment> Comments { get; set; } = new List<Comment>();
 
     public virtual ICollection<Complaint> Complaints { get; set; } = new List<Complaint>();

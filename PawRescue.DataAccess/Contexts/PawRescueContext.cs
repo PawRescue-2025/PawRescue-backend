@@ -133,6 +133,9 @@ public class PawRescueContext : IdentityDbContext<AppUser>
             entity.Property(e => e.PostType).HasMaxLength(50);
             entity.Property(e => e.Title).HasMaxLength(100);
             entity.Property(e => e.UserId).HasMaxLength(450);
+            entity.Property(e => e.ContactEmail).HasMaxLength(50);
+            entity.Property(e => e.ContactPhone).HasMaxLength(50);
+            entity.Property(e => e.ContactLink).HasMaxLength(50);
 
             entity.HasOne(d => d.User).WithMany(p => p.Posts)
                 .HasForeignKey(d => d.UserId)
@@ -172,6 +175,9 @@ public class PawRescueContext : IdentityDbContext<AppUser>
             entity.Property(e => e.Location).HasMaxLength(200);
             entity.Property(e => e.Name).HasMaxLength(100);
             entity.Property(e => e.OwnerId).HasMaxLength(450);
+            entity.Property(e => e.ContactPhone).HasMaxLength(50);
+            entity.Property(e => e.ContactEmail).HasMaxLength(50);
+            entity.Property(e => e.ContactLink).HasMaxLength(50);
 
             entity.HasOne(d => d.Owner).WithMany(p => p.Shelters)
                 .HasForeignKey(d => d.OwnerId)
