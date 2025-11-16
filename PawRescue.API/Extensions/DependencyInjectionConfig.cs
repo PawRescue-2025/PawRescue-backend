@@ -1,4 +1,5 @@
-﻿using PawRescue.DataAccess.Abstraction.Repositories;
+﻿using Microsoft.Extensions.Azure;
+using PawRescue.DataAccess.Abstraction.Repositories;
 using PawRescue.DataAccess.Abstraction.UnitOfWork;
 using PawRescue.DataAccess.Repositories;
 using PawRescue.DataAccess.UnitOfWork;
@@ -6,6 +7,7 @@ using PawRescue.Domain.MappingProfiles;
 using PawRescue.Services.Abstraction.Animal;
 using PawRescue.Services.Abstraction.Comments;
 using PawRescue.Services.Abstraction.Complaints;
+using PawRescue.Services.Abstraction.Files;
 using PawRescue.Services.Abstraction.Identity;
 using PawRescue.Services.Abstraction.Points;
 using PawRescue.Services.Abstraction.Posts;
@@ -18,6 +20,7 @@ using PawRescue.Services.Abstraction.Verifications;
 using PawRescue.Services.Animals;
 using PawRescue.Services.Comments;
 using PawRescue.Services.Complaints;
+using PawRescue.Services.Files;
 using PawRescue.Services.Identity;
 using PawRescue.Services.Points;
 using PawRescue.Services.Posts;
@@ -32,16 +35,16 @@ namespace PawRescue.API.Extensions;
 
 public static class DependencyInjectionConfig
 {
-    public static void RegisterDependencies(this IServiceCollection services)
+    public static void RegisterDependencies(this IServiceCollection services, IConfiguration configuration)
     {
          RegisterDataAccess(services);
 
-         RegisterServices(services);
+         RegisterServices(services, configuration);
 
          RegisterExternalConfigs(services);
     }
 
-    private static void RegisterServices(this IServiceCollection services)
+    private static void RegisterServices(this IServiceCollection services, IConfiguration configuration)
     {
         services.AddTransient<IAuthService, AuthService>();
         services.AddTransient<IAnimalService, AnimalService>();
@@ -55,6 +58,13 @@ public static class DependencyInjectionConfig
         services.AddTransient<IResourceService, ResourceService>();
         services.AddTransient<IPointService, PointService>();
         services.AddTransient<IUserProfileService, UserProfileService>();
+
+        services.AddTransient<IFileManagementService, FileManagementService>();
+
+        services.AddAzureClients(builder =>
+        {
+            builder.AddBlobServiceClient(configuration.GetConnectionString("AzureStorage"));
+        });
     }
 
     private static void RegisterDataAccess(this IServiceCollection services)
