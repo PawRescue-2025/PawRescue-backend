@@ -24,5 +24,5 @@ public class CreatePostDTO
 
     public string? ContactLink { get; set; }
 
-    public List<string> Photos { get; set; }
+    public List<string> Photos { get; set; } = new();
 }

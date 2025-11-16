@@ -24,9 +24,9 @@ public class UpdateAnimalDTO
 
     public string? Description { get; set; }
 
-    public List<string> Documents { get; set; } = null!;
+    public List<string> Documents { get; set; } = new List<string>();
 
-    public List<string> Photos { get; set; } = null!;
+    public List<string> Photos { get; set; } = new List<string>();
 
     public bool IsHealthy { get; set; }
 

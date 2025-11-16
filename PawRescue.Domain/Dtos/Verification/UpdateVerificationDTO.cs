@@ -3,5 +3,5 @@
 public class UpdateVerificationDTO
 {
     public int Id { get; set; }
-    public List<string> Documents { get; set; }
+    public List<string> Documents { get; set; } = new();
 }
