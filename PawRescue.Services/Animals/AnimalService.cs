@@ -13,7 +13,7 @@ public class AnimalService(IUnitOfWorkFactory unitOfWorkFactory, IMapper mapper)
     private readonly IUnitOfWorkFactory unitOfWorkFactory = unitOfWorkFactory;
     private readonly IMapper mapper = mapper;
 
-    public async Task<Result> CreateAsync(CreateAnimalDTO createDto)
+    public async Task<Result<GridAnimalDTO>> CreateAsync(CreateAnimalDTO createDto)
     {
         using var uow = unitOfWorkFactory.CreateUnitOfWork();
         var repository = uow.GetRepository<IAnimalRepository>();
@@ -24,7 +24,7 @@ public class AnimalService(IUnitOfWorkFactory unitOfWorkFactory, IMapper mapper)
 
         await uow.CommitAsync();
 
-        return Result.Success();
+        return Result<GridAnimalDTO>.Success(mapper.Map<GridAnimalDTO>(animalEntity));
     }
 
     public async Task<Result<GridAnimalDTO>> UpdateAsync(UpdateAnimalDTO updateDto)

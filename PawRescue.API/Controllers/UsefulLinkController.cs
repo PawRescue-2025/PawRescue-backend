@@ -23,7 +23,7 @@ public class UsefulLinkController(IUsefulLinkService linkService) : ControllerBa
             return BadRequest(result.Error);
         }
 
-        return Ok("Useful link created successfully!");
+        return Ok(result.Value);
     }
 
     [HttpPut]

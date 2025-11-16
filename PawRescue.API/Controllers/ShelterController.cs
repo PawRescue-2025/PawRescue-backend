@@ -24,7 +24,7 @@ public class ShelterController(IShelterService shelterService) : ControllerBase
             return BadRequest(result.Error);
         }
 
-        return Ok("Shelter created successfully!");
+        return Ok(result.Value);
     }
 
     [HttpPut]

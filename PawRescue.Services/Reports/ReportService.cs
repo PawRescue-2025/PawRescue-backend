@@ -13,7 +13,7 @@ public class ReportService(IUnitOfWorkFactory unitOfWorkFactory, IMapper mapper)
     private readonly IUnitOfWorkFactory unitOfWorkFactory = unitOfWorkFactory;
     private readonly IMapper mapper = mapper;
 
-    public async Task<Result> CreateAsync(CreateReportDTO createDto)
+    public async Task<Result<GridReportDTO>> CreateAsync(CreateReportDTO createDto)
     {
         using var uow = unitOfWorkFactory.CreateUnitOfWork();
         var repository = uow.GetRepository<IReportRepository>();
@@ -24,7 +24,7 @@ public class ReportService(IUnitOfWorkFactory unitOfWorkFactory, IMapper mapper)
 
         await uow.CommitAsync();
 
-        return Result.Success();
+        return Result<GridReportDTO>.Success(mapper.Map<GridReportDTO>(reportEntity));
     }
 
     public async Task<Result<GridReportDTO>> GetByIdAsync(int id)

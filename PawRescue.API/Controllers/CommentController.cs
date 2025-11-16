@@ -23,7 +23,7 @@ public class CommentController(ICommentService commentService) : ControllerBase
             return BadRequest(result.Error);
         }
 
-        return Ok("Comment created successfully!");
+        return Ok(result.Value);
     }
 
     [HttpPatch]

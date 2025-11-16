@@ -14,7 +14,7 @@ public class UsefulLinkService(IUnitOfWorkFactory unitOfWorkFactory, IMapper map
     private readonly IUnitOfWorkFactory unitOfWorkFactory = unitOfWorkFactory;
     private readonly IMapper mapper = mapper;
 
-    public async Task<Result> CreateAsync(CreateUsefulLinkDTO createDto)
+    public async Task<Result<GridUsefulLinkDTO>> CreateAsync(CreateUsefulLinkDTO createDto)
     {
         using var uow = unitOfWorkFactory.CreateUnitOfWork();
         var repository = uow.GetRepository<IUsefulLinkRepository>();
@@ -25,7 +25,7 @@ public class UsefulLinkService(IUnitOfWorkFactory unitOfWorkFactory, IMapper map
 
         await uow.CommitAsync();
 
-        return Result.Success();
+        return Result<GridUsefulLinkDTO>.Success(mapper.Map<GridUsefulLinkDTO>(linkEntity));
     }
 
     public async Task<Result<GridUsefulLinkDTO>> UpdateAsync(UpdateUsefulLinkDTO updateDto)

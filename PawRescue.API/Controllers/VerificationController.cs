@@ -24,7 +24,7 @@ public class VerificationController(IVerificationService verificationService) : 
             return BadRequest(result.Error);
         }
 
-        return Ok("Verification created successfully!");
+        return Ok(result.Value);
     }
 
     [HttpPut]

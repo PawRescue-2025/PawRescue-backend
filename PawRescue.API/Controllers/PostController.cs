@@ -23,7 +23,7 @@ public class PostController(IPostService postService) : ControllerBase
             return BadRequest(result.Error);
         }
 
-        return Ok("Post created successfully!");
+        return Ok(result.Value);
     }
 
     [HttpPut]

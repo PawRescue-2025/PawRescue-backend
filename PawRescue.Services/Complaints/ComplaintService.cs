@@ -13,7 +13,7 @@ public class ComplaintService(IUnitOfWorkFactory unitOfWorkFactory, IMapper mapp
     private readonly IUnitOfWorkFactory unitOfWorkFactory = unitOfWorkFactory;
     private readonly IMapper mapper = mapper;
 
-    public async Task<Result> CreateAsync(CreateComplaintDTO createDto)
+    public async Task<Result<GridComplaintDTO>> CreateAsync(CreateComplaintDTO createDto)
     {
         using var uow = unitOfWorkFactory.CreateUnitOfWork();
         var repository = uow.GetRepository<IComplaintRepository>();
@@ -24,7 +24,7 @@ public class ComplaintService(IUnitOfWorkFactory unitOfWorkFactory, IMapper mapp
 
         await uow.CommitAsync();
 
-        return Result.Success();
+        return Result<GridComplaintDTO>.Success(mapper.Map<GridComplaintDTO>(complaintEntity));
     }
 
     public async Task<Result<GridComplaintDTO>> UpdateAsync(StatusComplaintDTO statusComplaintDTO)

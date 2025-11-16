@@ -23,7 +23,7 @@ public class ComplaintController(IComplaintService complaintService) : Controlle
             return BadRequest(result.Error);
         }
 
-        return Ok("Complaint created successfully!");
+        return Ok(result.Value);
     }
 
     [HttpPatch]

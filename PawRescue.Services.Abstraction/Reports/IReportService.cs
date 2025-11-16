@@ -5,7 +5,7 @@ namespace PawRescue.Services.Abstraction.Reports;
 
 public interface IReportService
 {
-    Task<Result> CreateAsync(CreateReportDTO createDto);
+    Task<Result<GridReportDTO>> CreateAsync(CreateReportDTO createDto);
     Task<Result> DeleteAsync(int id);
     Task<Result<GridReportDTO>> GetByIdAsync(int id);
 }

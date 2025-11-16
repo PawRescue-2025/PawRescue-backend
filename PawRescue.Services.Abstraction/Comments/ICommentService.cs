@@ -5,7 +5,7 @@ namespace PawRescue.Services.Abstraction.Comments;
 
 public interface ICommentService
 {
-    Task<Result> CreateAsync(CreateCommentDTO createDto);
+    Task<Result<GridCommentDTO>> CreateAsync(CreateCommentDTO createDto);
     Task<Result<GridCommentDTO>> UpdateAsync(StatusCommentDTO statusCommentDTO);
     Task<Result<IEnumerable<GridCommentDTO>>> GetAllAsync();
     Task<Result<IEnumerable<GridCommentDTO>>> GetAllByPostIdAsync(int postId);

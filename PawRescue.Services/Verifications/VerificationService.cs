@@ -13,7 +13,7 @@ public class VerificationService(IUnitOfWorkFactory unitOfWorkFactory, IMapper m
     private readonly IUnitOfWorkFactory unitOfWorkFactory = unitOfWorkFactory;
     private readonly IMapper mapper = mapper;
 
-    public async Task<Result> CreateAsync(CreateVerificationDTO createDto)
+    public async Task<Result<GridVerificationDTO>> CreateAsync(CreateVerificationDTO createDto)
     {
         using var uow = unitOfWorkFactory.CreateUnitOfWork();
         var repository = uow.GetRepository<IVerificationRepository>();
@@ -24,7 +24,7 @@ public class VerificationService(IUnitOfWorkFactory unitOfWorkFactory, IMapper m
 
         await uow.CommitAsync();
 
-        return Result.Success();
+        return Result<GridVerificationDTO>.Success(mapper.Map<GridVerificationDTO>(verificationEntity));
     }
 
     public async Task<Result<GridVerificationDTO>> UpdateAsync(UpdateVerificationDTO updateDto)

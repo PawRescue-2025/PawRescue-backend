@@ -5,7 +5,7 @@ namespace PawRescue.Services.Abstraction.Points;
 
 public interface IPointService
 {
-    Task<Result> CreateAsync(CreatePointDTO createDto);
+    Task<Result<GridPointDTO>> CreateAsync(CreatePointDTO createDto);
     Task<Result> DeleteAsync(int id);
     Task<Result<IEnumerable<GridPointDTO>>> GetAllAsync();
     Task<Result<GridPointDTO>> GetByIdAsync(int id);

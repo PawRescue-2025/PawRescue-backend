@@ -22,7 +22,7 @@ public class PointController(IPointService pointService) : ControllerBase
             return BadRequest(result.Error);
         }
 
-        return Ok("Point created successfully!");
+        return Ok(result.Value);
     }
 
     [HttpGet]

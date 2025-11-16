@@ -13,13 +13,13 @@ public class PointService(IUnitOfWorkFactory unitOfWorkFactory, IMapper mapper) 
     private readonly IUnitOfWorkFactory unitOfWorkFactory = unitOfWorkFactory;
     private readonly IMapper mapper = mapper;
 
-    public async Task<Result> CreateAsync(CreatePointDTO createDto)
+    public async Task<Result<GridPointDTO>> CreateAsync(CreatePointDTO createDto)
     {
         using var uow = unitOfWorkFactory.CreateUnitOfWork();
         var repository = uow.GetRepository<IPointRepository>();
 
         if (createDto.Points <= 0 || createDto.Points > 10)
-            return Result.Failure(new Error("InvalidPoints", "Points must be between 1 and 10."));
+            return Result<GridPointDTO>.Failure(new Error("InvalidPoints", "Points must be between 1 and 10."));
 
         var pointEntity = mapper.Map<Point>(createDto);
 
@@ -27,7 +27,7 @@ public class PointService(IUnitOfWorkFactory unitOfWorkFactory, IMapper mapper) 
 
         await uow.CommitAsync();
 
-        return Result.Success();
+        return Result<GridPointDTO>.Success(mapper.Map<GridPointDTO>(pointEntity));
     }
 
     public async Task<Result<IEnumerable<GridPointDTO>>> GetAllAsync()

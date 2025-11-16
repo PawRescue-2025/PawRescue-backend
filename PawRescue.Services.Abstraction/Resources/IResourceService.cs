@@ -5,7 +5,7 @@ namespace PawRescue.Services.Abstraction.Resources;
 
 public interface IResourceService
 {
-    Task<Result> CreateAsync(CreateResourceDTO createDto);
+    Task<Result<GridResourceDTO>> CreateAsync(CreateResourceDTO createDto);
     Task<Result> DeleteAsync(int id);
     Task<Result<IEnumerable<GridResourceDTO>>> GetAllAsync();
     Task<Result<IEnumerable<GridResourceDTO>>> GetAllByShelterIdAsync(int shelterId);

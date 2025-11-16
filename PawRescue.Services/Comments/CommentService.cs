@@ -13,18 +13,18 @@ public class CommentService(IUnitOfWorkFactory unitOfWorkFactory, IMapper mapper
     private readonly IUnitOfWorkFactory unitOfWorkFactory = unitOfWorkFactory;
     private readonly IMapper mapper = mapper;
 
-    public async Task<Result> CreateAsync(CreateCommentDTO createDto)
+    public async Task<Result<GridCommentDTO>> CreateAsync(CreateCommentDTO createDto)
     {
         using var uow = unitOfWorkFactory.CreateUnitOfWork();
         var repository = uow.GetRepository<ICommentRepository>();
 
-        var postEntity = mapper.Map<Comment>(createDto);
+        var commentEntity = mapper.Map<Comment>(createDto);
 
-        repository.Add(postEntity);
+        repository.Add(commentEntity);
 
         await uow.CommitAsync();
 
-        return Result.Success();
+        return Result<GridCommentDTO>.Success(mapper.Map<GridCommentDTO>(commentEntity));
     }
 
     public async Task<Result<GridCommentDTO>> UpdateAsync(StatusCommentDTO statusCommentDTO)

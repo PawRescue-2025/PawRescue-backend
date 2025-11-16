@@ -13,7 +13,7 @@ public class PostService(IUnitOfWorkFactory unitOfWorkFactory, IMapper mapper) :
     private readonly IUnitOfWorkFactory unitOfWorkFactory = unitOfWorkFactory;
     private readonly IMapper mapper = mapper;
 
-    public async Task<Result> CreateAsync(CreatePostDTO createDto)
+    public async Task<Result<GridPostDTO>> CreateAsync(CreatePostDTO createDto)
     {
         using var uow = unitOfWorkFactory.CreateUnitOfWork();
         var repository = uow.GetRepository<IPostRepository>();
@@ -24,7 +24,7 @@ public class PostService(IUnitOfWorkFactory unitOfWorkFactory, IMapper mapper) :
 
         await uow.CommitAsync();
 
-        return Result.Success();
+        return Result<GridPostDTO>.Success(mapper.Map<GridPostDTO>(postEntity));
     }
 
     public async Task<Result<GridPostDTO>> UpdateAsync(UpdatePostDTO updateDto)

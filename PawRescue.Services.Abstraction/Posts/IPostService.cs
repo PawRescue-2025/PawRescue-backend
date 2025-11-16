@@ -5,7 +5,7 @@ namespace PawRescue.Services.Abstraction.Posts;
 
 public interface IPostService
 {
-    Task<Result> CreateAsync(CreatePostDTO createDto);
+    Task<Result<GridPostDTO>> CreateAsync(CreatePostDTO createDto);
     Task<Result<GridPostDTO>> UpdateAsync(UpdatePostDTO updateDto);
     Task<Result<GridPostDTO>> UpdateAsync(StatusPostDTO statusPostDTO);
     Task<Result<GridPostDTO>> SetHelpRequestAsync(int id);

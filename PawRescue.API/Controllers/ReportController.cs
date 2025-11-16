@@ -24,7 +24,7 @@ public class ReportController(IReportService reportService) : ControllerBase
             return BadRequest(result.Error);
         }
 
-        return Ok("Report created successfully!");
+        return Ok(result.Value);
     }
 
     [HttpGet("{id}")]

@@ -13,7 +13,7 @@ public class ShelterService(IUnitOfWorkFactory unitOfWorkFactory, IMapper mapper
     private readonly IUnitOfWorkFactory unitOfWorkFactory = unitOfWorkFactory;
     private readonly IMapper mapper = mapper;
 
-    public async Task<Result> CreateAsync(CreateShelterDTO createDto)
+    public async Task<Result<GridShelterDTO>> CreateAsync(CreateShelterDTO createDto)
     {
         using var uow = unitOfWorkFactory.CreateUnitOfWork();
         var repository = uow.GetRepository<IShelterRepository>();
@@ -24,7 +24,7 @@ public class ShelterService(IUnitOfWorkFactory unitOfWorkFactory, IMapper mapper
 
         await uow.CommitAsync();
 
-        return Result.Success();
+        return Result<GridShelterDTO>.Success(mapper.Map<GridShelterDTO>(shelterEntity));
     }
 
     public async Task<Result<GridShelterDTO>> UpdateAsync(UpdateShelterDTO updateDto)

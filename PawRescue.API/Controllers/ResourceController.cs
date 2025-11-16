@@ -24,7 +24,7 @@ public class ResourceController(IResourceService resourceService) : ControllerBa
             return BadRequest(result.Error);
         }
 
-        return Ok("Resource created successfully!");
+        return Ok(result.Value);
     }
 
     [HttpPut]

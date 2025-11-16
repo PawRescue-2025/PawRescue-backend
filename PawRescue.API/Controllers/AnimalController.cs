@@ -24,7 +24,7 @@ public class AnimalController(IAnimalService animalService) : ControllerBase
             return BadRequest(result.Error);
         }
 
-        return Ok("Animal created successfully!");
+        return Ok(result.Value);
     }
 
     [HttpPut]

@@ -16,7 +16,7 @@ public class ResourceService(IUnitOfWorkFactory unitOfWorkFactory, IMapper mappe
     private readonly IUnitOfWorkFactory unitOfWorkFactory = unitOfWorkFactory;
     private readonly IMapper mapper = mapper;
 
-    public async Task<Result> CreateAsync(CreateResourceDTO createDto)
+    public async Task<Result<GridResourceDTO>> CreateAsync(CreateResourceDTO createDto)
     {
         using var uow = unitOfWorkFactory.CreateUnitOfWork();
         var repository = uow.GetRepository<IResourceRepository>();
@@ -27,7 +27,7 @@ public class ResourceService(IUnitOfWorkFactory unitOfWorkFactory, IMapper mappe
 
         await uow.CommitAsync();
 
-        return Result.Success();
+        return Result<GridResourceDTO>.Success(mapper.Map<GridResourceDTO>(resourceEntity));
     }
 
     public async Task<Result<GridResourceDTO>> UpdateDescriptionAsync(DescriptionResourceDTO resourceDTO)
