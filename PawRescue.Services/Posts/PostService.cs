@@ -125,6 +125,7 @@ public class PostService(IUnitOfWorkFactory unitOfWorkFactory, IMapper mapper) :
     {
         using var uow = unitOfWorkFactory.CreateUnitOfWork();
         var repository = uow.GetRepository<IPostRepository>();
+        var commentRepository = uow.GetRepository<ICommentRepository>();
 
         var post = await repository.GetByIdAsync(id);
 
@@ -132,6 +133,15 @@ public class PostService(IUnitOfWorkFactory unitOfWorkFactory, IMapper mapper) :
         {
             var error = new Error("System.NotFound", "There is no post with this id.");
             return Result.Failure(error);
+        }
+
+        var comments = await commentRepository.GetAllByPostIdAsync(id);
+
+        foreach (var comment in comments)
+        {
+            comment.Status = Domain.Enum.EntityStatus.Deleted;
+            comment.DeletionDate = DateTime.Now;
+            commentRepository.Update(comment);
         }
 
         post.Status = Domain.Enum.EntityStatus.Deleted;
