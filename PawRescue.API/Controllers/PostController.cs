@@ -68,7 +68,7 @@ public class PostController(IPostService postService) : ControllerBase
 
     [HttpGet]
     public async Task<IActionResult> GetAllAsync()
-    {
+    {   
         var result = await postService.GetAllAsync();
 
         if (result.IsFailure)

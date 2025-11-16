@@ -2,6 +2,8 @@
 
 public class GridPointDTO
 {
+    public int Id { get; set; }
+
     public string RecipientId { get; set; } = null!;
 
     public string? ReviewerId { get; set; }
