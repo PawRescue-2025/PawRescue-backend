@@ -8,7 +8,7 @@ namespace PawRescue.API.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
-[Authorize(Roles = Roles.Moderator)]
+[Authorize]
 public class UsefulLinkController(IUsefulLinkService linkService) : ControllerBase
 {
     private readonly IUsefulLinkService linkService = linkService;
