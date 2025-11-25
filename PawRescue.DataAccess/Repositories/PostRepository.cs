@@ -10,12 +10,13 @@ public class PostRepository : Repository<Post, int>, IPostRepository
     {
         return await DbSet
                         .Where(p => p.Status == Domain.Enum.EntityStatus.Active)
+                        .OrderByDescending(p => p.CreationDate)
                         .ToListAsync();
     }
 
     public async Task<IEnumerable<Post>> GetAllByUserIdAsync(string userId)
     {
-        return await DbSet.Where(p => p.UserId == userId && p.Status == Domain.Enum.EntityStatus.Active)
+        return await DbSet.Where(p => p.UserId == userId && p.Status == Domain.Enum.EntityStatus.Active).OrderByDescending(p => p.CreationDate)
                         .ToListAsync();
     }
 }
