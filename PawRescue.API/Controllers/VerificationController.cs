@@ -14,7 +14,7 @@ public class VerificationController(IVerificationService verificationService) : 
     private readonly IVerificationService verificationService = verificationService;
 
     [HttpPost]
-    [Authorize(Roles = $"{Roles.ShelterOwner},{Roles.Moderator}")]
+    [Authorize(Roles = $"{Roles.Volunteer},{Roles.ShelterOwner},{Roles.Moderator}")]
     public async Task<IActionResult> CreateAsync([FromBody] CreateVerificationDTO createDto)
     {
         var result = await verificationService.CreateAsync(createDto);
@@ -28,7 +28,7 @@ public class VerificationController(IVerificationService verificationService) : 
     }
 
     [HttpPut]
-    [Authorize(Roles = $"{Roles.ShelterOwner},{Roles.Moderator}")]
+    [Authorize(Roles = $"{Roles.Volunteer},{Roles.ShelterOwner},{Roles.Moderator}")]
     public async Task<IActionResult> UpdateAsync([FromBody] UpdateVerificationDTO updateDto)
     {
         var result = await verificationService.UpdateAsync(updateDto);
