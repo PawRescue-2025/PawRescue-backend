@@ -10,6 +10,7 @@ public class GridUserDTO
     public string? Description { get; set; }
     public string? Photo { get; set; }
     public string PhoneNumber { get; set; }
+    public UserRole Role { get; set; }
     public DateTime RegistrationDate { get; set; }
     public EntityStatus Status { get; set; }
 }

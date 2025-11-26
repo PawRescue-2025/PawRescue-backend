@@ -5,7 +5,7 @@
 	[PostType] INT	   NOT NULL,
 	[EventDate] DATETIME2     NULL,
 	[Title]     NVARCHAR(100)   NOT NULL,
-	[Content]   TEXT           NOT NULL,
+	[Content]   NVARCHAR(MAX)           NOT NULL,
 	[Status]    INT    NOT NULL,
 	[IsHelpRequestCompleted] BIT NULL,
 	[CreationDate] DATETIME2     NOT NULL DEFAULT GETDATE(),

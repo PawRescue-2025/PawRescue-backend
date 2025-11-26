@@ -6,7 +6,7 @@
     [ReviewerId] NVARCHAR(450) NULL, 
     
     [Points] INT NOT NULL,
-    [Comment] TEXT NOT NULL,
+    [Comment] NVARCHAR(MAX) NOT NULL,
     
     [ReviewDate] DATETIME2 NOT NULL DEFAULT SYSUTCDATETIME(), 
 

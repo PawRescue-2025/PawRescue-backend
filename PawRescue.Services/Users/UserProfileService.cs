@@ -26,6 +26,12 @@ public class UserProfileService(UserManager<AppUser> userManager, IUnitOfWorkFac
             return Result<GridUserDTO>.Failure(error);
         }
 
+        var role = await userManager.GetRolesAsync(user);
+
+        var userDto = mapper.Map<GridUserDTO>(user);
+
+        userDto.Role = role.Count > 0 ? Enum.Parse<UserRole>(role[0]) : UserRole.Caring;
+
         return Result<GridUserDTO>.Success(mapper.Map<GridUserDTO>(user));
     }
 

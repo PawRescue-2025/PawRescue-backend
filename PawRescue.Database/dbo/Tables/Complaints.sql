@@ -6,7 +6,7 @@
 	[PostId] INT NULL,
 	[CommentId] INT NULL,
 	[Category] NVARCHAR(100) NOT NULL,
-	[Description] TEXT NULL,
+	[Description] NVARCHAR(MAX) NULL,
 	[Status] INT NOT NULL,
 	[CreationDate] DATETIME2     NOT NULL DEFAULT GETDATE(),
 	CONSTRAINT [FK_Complaints_To_Complainants] FOREIGN KEY ([ComplainantId]) REFERENCES [dbo].[AspNetUsers]([Id]),

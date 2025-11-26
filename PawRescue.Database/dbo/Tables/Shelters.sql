@@ -3,7 +3,7 @@
 	[Id]	      INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
 	[OwnerId]	  NVARCHAR(450)   NOT NULL,
 	[Name]		  NVARCHAR(100)	   NOT NULL,
-	[Description] TEXT   NOT NULL,
+	[Description] NVARCHAR(MAX)   NOT NULL,
 	[Location]	  NVARCHAR(200)   NOT NULL,
 
 	[ContactPhone] NVARCHAR(50) NULL, 
