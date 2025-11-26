@@ -15,7 +15,7 @@
     [LockoutEnabled]         BIT                NOT NULL,
     [AccessFailedCount]      INT                NOT NULL,
     [FullName] NVARCHAR(100) NOT NULL,
-    [Description] TEXT NULL,
+    [Description] NVARCHAR(MAX) NULL,
     [Photo] NVARCHAR(256) NULL,
     [Status] INT NOT NULL,
     [RefreshToken]           NVARCHAR (MAX)     NULL,

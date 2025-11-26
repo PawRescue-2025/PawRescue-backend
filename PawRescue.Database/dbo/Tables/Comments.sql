@@ -3,7 +3,7 @@
 	[Id]	    INT IDENTITY(1,1) NOT NULL PRIMARY KEY, 
 	[AuthorId] NVARCHAR(450) NOT NULL,
 	[PostId]   INT          NOT NULL,
-	[Content] TEXT NOT NULL,
+	[Content] NVARCHAR(MAX) NOT NULL,
 	[Status] INT NOT NULL,
 	[CreationDate] DATETIME2     NOT NULL DEFAULT GETDATE(),
 	[DeletionDate] DATETIME2     NULL,

@@ -2,7 +2,6 @@
 using Microsoft.EntityFrameworkCore;
 using PawRescue.Domain.Entities;
 using PawRescue.Domain.Entities.Identity;
-using System.Reflection.Emit;
 
 namespace PawRescue.DataAccess.Contexts;
 
@@ -44,7 +43,6 @@ public class PawRescueContext : IdentityDbContext<AppUser>
             entity.Property(e => e.Size);
             entity.Property(e => e.ArrivalDate).HasDefaultValueSql("(getdate())");
             entity.Property(e => e.Breed).HasMaxLength(50);
-            entity.Property(e => e.Description).HasColumnType("text");
             entity.Property(e => e.Documents);
             entity.Property(e => e.Photos);
             entity.Property(e => e.Gender).HasMaxLength(50);
@@ -61,7 +59,6 @@ public class PawRescueContext : IdentityDbContext<AppUser>
             entity.HasKey(e => e.Id).HasName("PK__Comments__3214EC07F7121547");
 
             entity.Property(e => e.AuthorId).HasMaxLength(450);
-            entity.Property(e => e.Content).HasColumnType("text");
             entity.Property(e => e.CreationDate).HasDefaultValueSql("(getdate())");
             entity.Property(e => e.Status).HasMaxLength(50);
 
@@ -83,7 +80,6 @@ public class PawRescueContext : IdentityDbContext<AppUser>
             entity.Property(e => e.Category).HasMaxLength(100);
             entity.Property(e => e.ComplainantId).HasMaxLength(450);
             entity.Property(e => e.CreationDate).HasDefaultValueSql("(getdate())");
-            entity.Property(e => e.Description).HasColumnType("text");
             entity.Property(e => e.Status).HasMaxLength(50);
             entity.Property(e => e.UserId).HasMaxLength(450);
 
@@ -108,7 +104,6 @@ public class PawRescueContext : IdentityDbContext<AppUser>
         {
             entity.HasKey(e => e.Id).HasName("PK__tmp_ms_x__3214EC07B7404CF9");
 
-            entity.Property(e => e.Comment).HasColumnType("text");
             entity.Property(e => e.RecipientId).HasMaxLength(450);
             entity.Property(e => e.ReviewDate).HasDefaultValueSql("(sysutcdatetime())");
             entity.Property(e => e.ReviewerId).HasMaxLength(450);
@@ -127,7 +122,6 @@ public class PawRescueContext : IdentityDbContext<AppUser>
         {
             entity.HasKey(e => e.Id).HasName("PK__Posts__3214EC07B98D951D");
 
-            entity.Property(e => e.Content).HasColumnType("text");
             entity.Property(e => e.CreationDate).HasDefaultValueSql("(getdate())");
             entity.Property(e => e.Location).HasMaxLength(200);
             entity.Property(e => e.PostType).HasMaxLength(50);
@@ -147,7 +141,6 @@ public class PawRescueContext : IdentityDbContext<AppUser>
             entity.HasKey(e => e.Id).HasName("PK__Reports__3214EC071181C61E");
 
             entity.Property(e => e.CreationDate).HasDefaultValueSql("(getdate())");
-            entity.Property(e => e.Text).HasColumnType("text");
 
             entity.HasOne(d => d.Post).WithMany(p => p.Reports)
                 .HasForeignKey(d => d.PostId)
@@ -159,7 +152,6 @@ public class PawRescueContext : IdentityDbContext<AppUser>
             entity.HasKey(e => e.Id).HasName("PK__Resource__3214EC07799BA2AC");
 
             entity.Property(e => e.Category).HasMaxLength(50);
-            entity.Property(e => e.Description).HasColumnType("text");
             entity.Property(e => e.Name).HasMaxLength(100);
 
             entity.HasOne(d => d.Shelter).WithMany(p => p.Resources)
@@ -171,7 +163,6 @@ public class PawRescueContext : IdentityDbContext<AppUser>
         {
             entity.HasKey(e => e.Id).HasName("PK__Shelters__3214EC075045688B");
 
-            entity.Property(e => e.Description).HasColumnType("text");
             entity.Property(e => e.Location).HasMaxLength(200);
             entity.Property(e => e.Name).HasMaxLength(100);
             entity.Property(e => e.OwnerId).HasMaxLength(450);
@@ -188,7 +179,6 @@ public class PawRescueContext : IdentityDbContext<AppUser>
         {
             entity.HasKey(e => e.Id).HasName("PK__UsefulLi__3214EC075F2AE727");
 
-            entity.Property(e => e.Content).HasColumnType("text");
             entity.Property(e => e.Title).HasMaxLength(100);
             entity.Property(e => e.Type).HasMaxLength(50);
         });

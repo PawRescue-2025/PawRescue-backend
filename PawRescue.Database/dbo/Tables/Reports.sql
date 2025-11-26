@@ -2,7 +2,7 @@
 (
 	[Id]	      INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
 	[PostId] INT NOT NULL,
-	[Text]   Text NULL,
+	[Text]   NVARCHAR(MAX) NULL,
 	[Documents] NVARCHAR(MAX)  NULL,
     [Photos] NVARCHAR(MAX)  NULL,
 	[CreationDate] DATETIME2     NOT NULL DEFAULT GETDATE(),

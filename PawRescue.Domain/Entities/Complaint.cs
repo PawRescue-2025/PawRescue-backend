@@ -1,7 +1,5 @@
 ﻿using PawRescue.Domain.Entities.Identity;
 using PawRescue.Domain.Enum;
-using System;
-using System.Collections.Generic;
 
 namespace PawRescue.Domain.Entities;
 
