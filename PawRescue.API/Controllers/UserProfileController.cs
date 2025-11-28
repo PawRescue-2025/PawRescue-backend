@@ -54,7 +54,6 @@ public class UserProfileController(IUserProfileService userProfileService) : Con
     }
 
     [HttpPut]
-    [Authorize(Roles = Roles.Moderator)]
     public async Task<IActionResult> UpdateAsync([FromBody] UpdateUserDTO updateDto)
     {
         var result = await userProfileService.UpdateAsync(updateDto);
