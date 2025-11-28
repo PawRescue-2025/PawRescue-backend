@@ -32,7 +32,7 @@ public class UserProfileService(UserManager<AppUser> userManager, IUnitOfWorkFac
 
         userDto.Role = role.Count > 0 ? Enum.Parse<UserRole>(role[0]) : UserRole.Caring;
 
-        return Result<GridUserDTO>.Success(mapper.Map<GridUserDTO>(user));
+        return Result<GridUserDTO>.Success(userDto);
     }
 
     public async Task<Result<int>> GetUserPointsAsync(string id)
