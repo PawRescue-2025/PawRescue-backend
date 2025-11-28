@@ -69,7 +69,7 @@ public class AnimalController(IAnimalService animalService) : ControllerBase
         return Ok(result.Value);
     }
 
-    [HttpGet("shelter/{id}")]
+    [HttpGet("shelter/{shelterId}")]
     [Authorize(Roles = $"{Roles.ShelterOwner},{Roles.Moderator}")]
     public async Task<IActionResult> GetByShelterIdAsync([FromRoute] int shelterId)
     {
