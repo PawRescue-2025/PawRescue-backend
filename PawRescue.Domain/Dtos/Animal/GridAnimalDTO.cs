@@ -35,4 +35,7 @@ public class GridAnimalDTO
     public bool IsSterilized { get; set; }
 
     public AdoptionStatus AdoptionStatus { get; set; }
+
+    public DateTime ArrivalDate { get; set; }
+
 }
