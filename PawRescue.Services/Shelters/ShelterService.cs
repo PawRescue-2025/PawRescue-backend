@@ -75,6 +75,22 @@ public class ShelterService(IUnitOfWorkFactory unitOfWorkFactory, IMapper mapper
         return Result<GridShelterDTO>.Success(mapper.Map<GridShelterDTO>(shelter));
     }
 
+    public async Task<Result<GridShelterDTO>> GetByOwnerIdAsync(string ownerId)
+    {
+        using var uow = unitOfWorkFactory.CreateUnitOfWork();
+        var repository = uow.GetRepository<IShelterRepository>();
+
+        var shelter = await repository.GetByOwnerIdAsync(ownerId);
+
+        if (shelter == null)
+        {
+            var error = new Error("System.NotFound", "There is no shelter with this owner id.");
+            return Result<GridShelterDTO>.Failure(error);
+        }
+
+        return Result<GridShelterDTO>.Success(mapper.Map<GridShelterDTO>(shelter));
+    }
+
     public async Task<Result> DeleteAsync(int id)
     {
         using var uow = unitOfWorkFactory.CreateUnitOfWork();

@@ -43,6 +43,22 @@ public class ReportService(IUnitOfWorkFactory unitOfWorkFactory, IMapper mapper)
         return Result<GridReportDTO>.Success(mapper.Map<GridReportDTO>(report));
     }
 
+    public async Task<Result<GridReportDTO>> GetByPostIdAsync(int postId)
+    {
+        using var uow = unitOfWorkFactory.CreateUnitOfWork();
+        var repository = uow.GetRepository<IReportRepository>();
+
+        var report = await repository.GetByPostIdAsync(postId);
+
+        if (report == null)
+        {
+            var error = new Error("System.NotFound", "There is no report with this post id.");
+            return Result<GridReportDTO>.Failure(error);
+        }
+
+        return Result<GridReportDTO>.Success(mapper.Map<GridReportDTO>(report));
+    }
+
     public async Task<Result> DeleteAsync(int id)
     {
         using var uow = unitOfWorkFactory.CreateUnitOfWork();

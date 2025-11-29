@@ -40,6 +40,19 @@ public class ReportController(IReportService reportService) : ControllerBase
         return Ok(result.Value);
     }
 
+    [HttpGet("post/{postId}")]
+    public async Task<IActionResult> GetByPostIdAsync([FromRoute] int postId)
+    {
+        var result = await reportService.GetByPostIdAsync(postId);
+
+        if (result.IsFailure)
+        {
+            return BadRequest(result.Error);
+        }
+
+        return Ok(result.Value);
+    }
+
     [HttpDelete("{id}")]
     [Authorize(Roles = $"{Roles.ShelterOwner},{Roles.Moderator},{Roles.Volunteer}")]
     public async Task<IActionResult> DeleteAsync([FromRoute] int id)

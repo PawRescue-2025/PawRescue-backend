@@ -10,5 +10,5 @@ public interface IShelterService
     Task<Result<IEnumerable<GridShelterDTO>>> GetAllAsync();
     Task<Result<GridShelterDTO>> GetByIdAsync(int id);
     Task<Result> DeleteAsync(int id);
-    
+    Task<Result<GridShelterDTO>> GetByOwnerIdAsync(string ownerId);
 }

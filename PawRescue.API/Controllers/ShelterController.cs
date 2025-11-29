@@ -42,7 +42,7 @@ public class ShelterController(IShelterService shelterService) : ControllerBase
     }
 
     [HttpGet]
-    [Authorize(Roles = $"{Roles.ShelterOwner},{Roles.Moderator}")]
+    [Authorize]
     public async Task<IActionResult> GetAllAsync()
     {
         var result = await shelterService.GetAllAsync();
@@ -56,10 +56,24 @@ public class ShelterController(IShelterService shelterService) : ControllerBase
     }
 
     [HttpGet("{id}")]
-    [Authorize(Roles = $"{Roles.ShelterOwner},{Roles.Moderator}")]
+    [Authorize]
     public async Task<IActionResult> GetByIdAsync([FromRoute] int id)
     {
         var result = await shelterService.GetByIdAsync(id);
+
+        if (result.IsFailure)
+        {
+            return BadRequest(result.Error);
+        }
+
+        return Ok(result.Value);
+    }
+
+    [HttpGet("owner/{ownerId}")]
+    [Authorize]
+    public async Task<IActionResult> GetByOwnerIdAsync([FromRoute] string ownerId)
+    {
+        var result = await shelterService.GetByOwnerIdAsync(ownerId);
 
         if (result.IsFailure)
         {

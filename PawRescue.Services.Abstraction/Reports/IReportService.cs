@@ -8,4 +8,5 @@ public interface IReportService
     Task<Result<GridReportDTO>> CreateAsync(CreateReportDTO createDto);
     Task<Result> DeleteAsync(int id);
     Task<Result<GridReportDTO>> GetByIdAsync(int id);
+    Task<Result<GridReportDTO>> GetByPostIdAsync(int postId);
 }
